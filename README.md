@@ -4,7 +4,10 @@ Extrema of mathematical functions
                                                                                                                      
     Problem: Identify the extrema  of                                                                                
                                                                                                                      
-        f(x) = sin(2x)*sin(x) over (-pi/2,pi/2)                                                                      
+        f(x) = sin(2x)*sin(x) over (-pi/2,pi/2) 
+        
+    github
+    https://github.com/rogerjdeangelis/utl-extrema--of-mathematical-functions
                                                                                                                      
     Keep in mind that closed form solutions are quite rare in the domain od advanced mathematical analysys,          
     but when they exist either exactly or approximately they can lead to dramatic new knowledge.                     
