@@ -6,7 +6,10 @@ Problem: Identify the extrema  of
                                                                                                                    
 Keep in mind that closed form solutions are quite rare in the domain od advanced mathematical analysys,            
 but when they exist either exactly or approximately they can lead to dramatic new knowledge.                       
-                                                                                                                   
+         
+github
+https://github.com/rogerjdeangelis/utl-extrema--of-mathematical-functions
+
 SAS Forum                                                                                                          
 https://tinyurl.com/wbymtcb                                                                                        
 https://communities.sas.com/t5/Graphics-Programming/SAS-and-the-extrems-of-Mathematical-Function/m-p/603053        
