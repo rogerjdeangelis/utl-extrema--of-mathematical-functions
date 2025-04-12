@@ -113,9 +113,8 @@ Extrema of mathematical functions
        DX1         2*sin(x)*cos(2*x) + sin(2*x)*cos(x)
        DX2         -5*sin(x)*sin(2*x) + 4*cos(x)*cos(2*x)
 
-       LOC         0, -2*atan(sqrt(-sqrt(3) + 2)), 2*atan(sqrt(-sqrt(3) + 2))
+       LOC         0, -pi/2+atan(2*sqrt(2))/2, atan(1/tan(atan(2*sqrt(2))/2))
 
-       LOC1        0
        LOC2        -pi/2+atan(2*sqrt(2))/2
 
        LOC3        atan(1/tan(atan(2*sqrt(2))/2))
@@ -134,8 +133,8 @@ Extrema of mathematical functions
 
     Minimum (f``(0)                             is negative
 
-    Maxima1  f``(-2*atan(sqrt(-sqrt(3) + 2)))   is positive
-    Maxima2  f``(2*atan(sqrt(-sqrt(3) + 2)))    is positive
+    Maxima1  f``(-pi/2+atan(2*sqrt(2))/2))        is positive
+    Maxima2  f``(tan(1/tan(atan(2*sqrt(2))/2))    is positive
 
 
                              x
