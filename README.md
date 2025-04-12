@@ -117,8 +117,10 @@ Extrema of mathematical functions
        LOC         0, -2*atan(sqrt(-sqrt(3) + 2)), 2*atan(sqrt(-sqrt(3) + 2))                                        
                                                                                                                      
        LOC1        0                                                                                                 
-       LOC2        -2*atan(sqrt(-sqrt(3) + 2))                                                                       
-       LOC3        2*atan(sqrt(-sqrt(3) + 2))                                                                        
+       LOC2        -pi/2+atan(2*sqrt(2))/2
+                                                                      
+       LOC3        atan(1/tan(atan(2*sqrt(2))/2))
+                                                                       
                                                                                                                      
                                                                                                                      
     First and secon derivatives                                                                                      
@@ -126,7 +128,7 @@ Extrema of mathematical functions
     f`(x)   =  2*sin(x)*cos(2*x) + sin(2*x)*cos(x)                                                                   
     f``(x)  =  -5*sin(x)*sin(2*x) + 4*cos(x)*cos(2*x)                                                                
                                                                                                                      
-    Extrema {0, -2*atan(sqrt(-sqrt(3) + 2)), 2*atan(sqrt(-sqrt(3) + 2))}                                             
+    Extrema {0, -pi/2+atan(2*sqrt(2))/2), atan(1/tan(atan(2*sqrt(2))/2))}                                             
                                                                                                                      
                                                                                                                      
     Second derivatives provide the type of maxima                                                                    
@@ -182,75 +184,77 @@ Extrema of mathematical functions
     |_|                                                                                                              
     ;                                                                                                                
                                                                                                                      
-    %utl_submit_py64('                                                                                               
-    from sympy import *;                                                                                             
-    import pyperclip;                                                                                                
-    x = Symbol("x", domain=S.Reals);                                                                                 
-    solve_domain = And(-pi/2 <= x, x < pi/2).as_set();                                                               
-    dx1=diff(sin(2*x)*sin(x));                                                                                       
-    print(dx1);                                                                                                      
-    res=solveset(dx1, x, solve_domain);                                                                              
-    print(res);                                                                                                      
-    dx2=diff(dx1);                                                                                                   
-    print(dx2);                                                                                                      
-    tx1=str(dx1);                                                                                                    
-    tx2=str(dx2);                                                                                                    
-    tx3=str(res);                                                                                                    
-    tx123=tx1+"@"+tx2+"@"+tx3;                                                                                       
-    pyperclip.copy(tx123);                                                                                           
-    ',return=frompy);                                                                                                
-                                                                                                                     
-    LOG                                                                                                              
-                                                                                                                     
-    2*sin(x)*cos(2*x) + sin(2*x)*cos(x)                                                                              
-    {0, -2*atan(sqrt(-sqrt(3) + 2)), 2*atan(sqrt(-sqrt(3) + 2))}                                                     
-    -5*sin(x)*sin(2*x) + 4*cos(x)*cos(2*x)                                                                           
-                                                                                                                     
-    %put &=frompy; /*  "@" delimiter  */                                                                             
-                                                                                                                     
-    FROMPY=2*sin(x)*cos(2*x) + sin(2*x)*cos(x)@                                                                      
-           -5*sin(x)*sin(2*x) + 4*cos(x)*cos(2*x)@                                                                   
-           {0, -2*atan(sqrt(-sqrt(3) + 2)),2*atan(sqrt(-sqrt(3) + 2))}                                               
-                                                                                                                     
-    data want;                                                                                                       
-     if _n_=0 then do; %let rc=%sysfunc(dosubl('                                                                     
-       /* get meta functionals */                                                                                    
-       data meta;                                                                                                    
-                                                                                                                     
-         retain tx123 "&frompy";                                                                                     
-                                                                                                                     
-         dx1=scan(tx123,1,'@');                                                                                      
-         dx2=scan(tx123,2,'@');                                                                                      
-                                                                                                                     
-         loc=compress(scan(tx123,3,'@'),"{}");                                                                       
-                                                                                                                     
-         loc1=scan(loc,1,",");                                                                                       
-         loc2=scan(loc,2,",");                                                                                       
-         loc3=scan(loc,3,",");                                                                                       
-                                                                                                                     
-         drop tx123;                                                                                                 
-                                                                                                                     
-         call symputx("dx1",dx1);                                                                                    
-         call symputx("dx2",dx2);                                                                                    
-         call symputx("loc1",loc1);                                                                                  
-         call symputx("loc2",loc2);                                                                                  
-         call symputx("loc3",loc3);                                                                                  
-                                                                                                                     
-       run;quit;                                                                                                     
-       proc transpose data=meta out=mtaXpo(rename=(_name_=Functionals col1=Closed_Form));                            
-       var _character_;                                                                                              
-       run;quit;                                                                                                     
-       '));                                                                                                          
-     end;                                                                                                            
-                                                                                                                     
-     extrema  = &loc1; link evl;                                                                                     
-     extrema  = &loc2; link evl;                                                                                     
-     extrema  = &loc3; link evl;                                                                                     
-     stop;                                                                                                           
-                                                                                                                     
-     evl:                                                                                                            
-       x=extrema ;                                                                                                   
-       sign=sign(&dx2);                                                                                              
-       if sign<0 then MinMax="Maximum";else MinMax="Minimum";output;                                                 
-       return;                                                                                                       
-    run;quit;                                                                                                        
+    %utl_pybeginx;
+parmcards4;
+from sympy import *
+import pyperclip
+x = Symbol("x", domain=S.Reals)
+solve_domain = And(-pi/2 <= x, x < pi/2).as_set()
+dx1=diff(sin(2*x)*sin(x))
+print(dx1)
+res=solveset(dx1, x,solve_domain)
+res=simplify(res);
+print(res)
+dx2=diff(dx1)
+print(dx2)
+tx1=str(dx1)
+tx2=str(dx2)
+tx3=str(res)
+tx123=tx1+"@"+tx2+"@"+tx3
+print(tx123)
+pyperclip.copy(tx123)
+;;;;
+%utl_pyendx(return=frompy);
+
+%put &frompy;
+
+options ls=255;
+data want;
+ if _n_=0 then do; %let rc=%sysfunc(dosubl('
+   /* get meta functionals */
+   data meta;
+
+     retain tx123 "&frompy";
+
+     dx1=compress(scan(tx123,1,'@'));
+     dx2=compress(scan(tx123,2,'@'));
+
+     loc=compress(scan(tx123,3,'@'),"{}");
+
+     put loc=;
+
+     loc1=compress(scan(loc,1,","));
+     loc2=compress(scan(loc,2,","));
+     loc3=compress(scan(loc,3,","));
+
+     drop tx123;
+
+     call symputx("dx1",dx1);
+     call symputx("dx2",dx2);
+     call symputx("loc1",loc1);
+     call symputx("loc2",loc2);
+     call symputx("loc3",loc3);
+
+   run;quit;
+
+   proc transpose data=meta out=mtaXpo(rename=(_name_=Functionals col1=Closed_Form));
+   var _character_;
+   run;quit;
+   '));
+ end;
+
+ extrema  = &loc1; link evl;
+ extrema  = &loc2; link evl;
+ extrema  = &loc3; link evl;
+
+ stop;
+
+ evl:
+   x=extrema ;
+   pi=constant("pi");
+   sign=sign(&dx2);
+   if sign<0 then MinMax="Maximum";else MinMax="Minimum";output;
+   return;
+
+
+run;quit;
